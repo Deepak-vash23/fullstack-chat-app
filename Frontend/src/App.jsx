@@ -9,10 +9,12 @@ import ProfilePage from "../src/pages/ProfilePage";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthStore } from "../src/store/useAuthStore";
 import { useThemeStore } from "../src/store/useThemeStore";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import ThemeToggle from "./components/ThemeToggle";
 
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
+
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();

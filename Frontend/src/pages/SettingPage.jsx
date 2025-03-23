@@ -8,7 +8,7 @@ const PREVIEW_MESSAGES = [
 ];
 
 const SettingsPage = () => {
-  const { theme, setTheme } = useThemeStore();
+  const { theme, setTheme } = useThemeStore(); // Get the theme from the store and setTheme method
 
   return (
     <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
@@ -18,15 +18,15 @@ const SettingsPage = () => {
           <p className="text-sm text-base-content/70">Choose a theme for your chat interface</p>
         </div>
 
+        {/* Theme selection buttons */}
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
           {THEMES.map((t) => (
             <button
               key={t}
-              className={`
-                group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors
-                ${theme === t ? "bg-base-200" : "hover:bg-base-200/50"}
-              `}
-              onClick={() => setTheme(t)}
+              className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors ${
+                theme === t ? "bg-base-200" : "hover:bg-base-200/50"
+              }`}
+              onClick={() => setTheme(t)} // Update the theme in the store
             >
               <div className="relative h-8 w-full rounded-md overflow-hidden" data-theme={t}>
                 <div className="absolute inset-0 grid grid-cols-4 gap-px p-1">
@@ -71,17 +71,17 @@ const SettingsPage = () => {
                       className={`flex ${message.isSent ? "justify-end" : "justify-start"}`}
                     >
                       <div
-                        className={`
-                          max-w-[80%] rounded-xl p-3 shadow-sm
-                          ${message.isSent ? "bg-primary text-primary-content" : "bg-base-200"}
-                        `}
+                        className={`max-w-[80%] rounded-xl p-3 shadow-sm ${
+                          message.isSent ? "bg-primary text-primary-content" : "bg-base-200"
+                        }`}
                       >
                         <p className="text-sm">{message.content}</p>
                         <p
-                          className={`
-                            text-[10px] mt-1.5
-                            ${message.isSent ? "text-primary-content/70" : "text-base-content/70"}
-                          `}
+                          className={`text-[10px] mt-1.5 ${
+                            message.isSent
+                              ? "text-primary-content/70"
+                              : "text-base-content/70"
+                          }`}
                         >
                           12:00 PM
                         </p>
@@ -113,4 +113,5 @@ const SettingsPage = () => {
     </div>
   );
 };
+
 export default SettingsPage;
