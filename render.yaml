@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: fullstack-chat-app
+    env: node
+    buildCommand: |
+      npm install
+      # Ensure proper case for cloudinary.js
+      cp Backend/src/libs/cloudinary.js Backend/src/libs/cloudinary.js.tmp
+      rm Backend/src/libs/cloudinary.js
+      cp Backend/src/libs/cloudinary.js.tmp Backend/src/libs/cloudinary.js
+      rm Backend/src/libs/cloudinary.js.tmp
+      npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: MONGODB_URI
+        sync: false 

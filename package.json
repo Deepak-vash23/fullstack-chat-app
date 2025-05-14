@@ -1,0 +1,25 @@
+{
+  "name": "chatting-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install-backend": "cd Backend && npm install",
+    "install-frontend": "cd Frontend && npm install",
+    "build-frontend": "cd Frontend && npm run build",
+    "build": "npm run install-backend && npm run install-frontend && npm run build-frontend",
+    "start": "cd Backend && npm start",
+    "dev": "cd Backend && npm run dev",
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('Backend/src/libs/cloudinary.js'), require('path').resolve('Backend/src/libs/cloudnary.js'), 'file') } catch (e) { }\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "A real-time chat application",
+  "dependencies": {
+    "git": "^0.1.5"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.1",
+    "vite-plugin-pwa": "^1.0.0"
+  }
+}
