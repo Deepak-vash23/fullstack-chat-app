@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import { LogOut, MessageSquare, Settings, User } from "lucide-react";
-import InstallPWA from "./InstallPWA";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
@@ -23,7 +22,6 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-1 sm:gap-2">
-            <InstallPWA />
             <Link
               to={"/settings"}
               className="btn btn-sm btn-ghost gap-1.5 text-base-content hover:bg-base-300/10"
