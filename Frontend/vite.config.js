@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'chat-icon.svg'],
       manifest: {
         name: 'Chatting App',
         short_name: 'ChatApp',
@@ -17,14 +17,10 @@ export default defineConfig({
         theme_color: '#4a90e2',
         icons: [
           {
-            src: 'icon-192x192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: 'icon-512x512.png',
+            src: '/chat-icon.svg',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
           }
         ]
       }
