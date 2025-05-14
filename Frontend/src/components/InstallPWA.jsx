@@ -7,44 +7,77 @@ const InstallPWA = () => {
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e) => {
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
+      console.log('beforeinstallprompt fired');
       // Stash the event so it can be triggered later
       setDeferredPrompt(e);
       setIsInstallable(true);
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    const handleAppInstalled = () => {
+      console.log('PWA was installed');
+      setIsInstallable(false);
+      setDeferredPrompt(null);
+    };
 
     // Check if app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setIsInstallable(false);
+    const checkInstalled = () => {
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('App is already installed');
+        setIsInstallable(false);
+      } else {
+        console.log('App is not installed');
+      }
+    };
+
+    // Initial check
+    checkInstalled();
+
+    // Add event listeners
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    // Check if running in Edge
+    const isEdge = navigator.userAgent.includes("Edg");
+    if (isEdge) {
+      console.log('Running in Edge browser');
+      // Edge specific handling if needed
     }
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return;
-
-    // Show the install prompt
-    deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      setIsInstallable(false);
+    if (!deferredPrompt) {
+      console.log('No installation prompt available');
+      return;
     }
 
-    // Clear the deferredPrompt for the next time
-    setDeferredPrompt(null);
+    try {
+      // Show the install prompt
+      console.log('Triggering install prompt');
+      deferredPrompt.prompt();
+
+      // Wait for the user to respond to the prompt
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Installation ${outcome}`);
+      
+      if (outcome === 'accepted') {
+        setIsInstallable(false);
+      }
+
+      // Clear the deferredPrompt for the next time
+      setDeferredPrompt(null);
+    } catch (error) {
+      console.error('Error during installation:', error);
+    }
   };
 
-  if (!isInstallable) return null;
-
+  // Show install button even if deferredPrompt is null (for testing)
   return (
     <button
       onClick={handleInstallClick}
