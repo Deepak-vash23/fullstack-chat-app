@@ -13,6 +13,7 @@
     "axios": "^1.6.7",
     "buffer": "^6.0.3",
     "chatting-app": "file:..",
+    "emoji-picker-react": "^4.12.2",
     "express": "^4.21.2",
     "lucide-react": "^0.323.0",
     "react": "^18.2.0",

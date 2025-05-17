@@ -13,8 +13,11 @@ export const useChatStore = create((set, get) => ({
   messages: [],
   users: [],
   selectedUser: getStoredUser(),
+  replyTo: null,
   isUsersLoading: false,
   isMessagesLoading: false,
+
+  setReplyTo: (message) => set({ replyTo: message }),
 
   getUsers: async () => {
     set({ isUsersLoading: true });
@@ -50,10 +53,13 @@ export const useChatStore = create((set, get) => ({
   },
 
   sendMessage: async (messageData) => {
-    const { selectedUser, messages } = get();
+    const { selectedUser, messages, replyTo } = get();
     try {
-      const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
-      set({ messages: [...messages, res.data] });
+      const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, {
+        ...messageData,
+        replyTo: replyTo?._id
+      });
+      set({ messages: [...messages, res.data], replyTo: null });
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -114,6 +120,6 @@ export const useChatStore = create((set, get) => ({
   // Clear selected user (for logout)
   clearSelectedUser: () => {
     localStorage.removeItem('selectedUser');
-    set({ selectedUser: null, messages: [] });
+    set({ selectedUser: null, messages: [], replyTo: null });
   }
 }));
