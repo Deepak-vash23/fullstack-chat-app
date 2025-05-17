@@ -29,13 +29,5 @@ A modern real-time chat application built using the MERN stack (MongoDB, Express
 
 ## 📸 Preview
 
-> Add screenshots or a GIF of your chat app in action here.
+![image](https://github.com/user-attachments/assets/79fa51d4-a7d0-4e00-85b7-3b7afb38902a) ![image](https://github.com/user-attachments/assets/7fe08353-7e93-4b2c-b2b4-d2c9d7a847c8)
 
----
-
-## 📦 Installation
-
-### Clone the repository
-```bash
-git clone https://github.com/yourusername/fullstack-chat-app.git
-cd fullstack-chat-app
